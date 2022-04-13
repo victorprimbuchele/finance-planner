@@ -8,6 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "axios": "^0.26.1",
     "mobx": "^6.5.0",
     "react": "^17.0.2",
@@ -16,6 +19,7 @@
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
     "@vitejs/plugin-react": "^1.0.7",
