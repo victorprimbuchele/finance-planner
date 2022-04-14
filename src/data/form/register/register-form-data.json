@@ -5,7 +5,8 @@
     "type": "text",
     "name": "name",
     "label": "Name",
-    "errors": "You must insert a name"
+    "errors": "You must insert a name",
+    "grouped": false
   },
   {
     "placeholder": "25",
@@ -13,15 +14,21 @@
     "type": "number",
     "name": "age",
     "label": "Age",
-    "errors": "You must insert an age"
-  },
-  {
-    "placeholder": "Male/Female",
-    "required": true,
-    "type": "text",
-    "name": "gender",
-    "label": "Gender",
-    "errors": "You must insert a gender"
+    "errors": "You must insert an age",
+    "grouped": true,
+    "gridCols": 2,
+    "gridGap": 2,
+    "group": [
+      {
+        "placeholder": "Male/Female",
+        "required": true,
+        "type": "text",
+        "name": "gender",
+        "label": "Gender",
+        "errors": "You must insert a gender",
+        "grouped": false
+      }
+    ]
   },
   {
     "placeholder": "victorprimbuchele@gmail.com",
@@ -29,7 +36,8 @@
     "type": "text",
     "name": "email",
     "label": "Email",
-    "errors": "You must insert a email"
+    "errors": "You must insert a email",
+    "grouped": false
   },
   {
     "placeholder": "********",
@@ -37,14 +45,20 @@
     "type": "text",
     "name": "password",
     "label": "Pass",
-    "errors": "You must insert a password"
-  },
-  {
-    "placeholder": "********",
-    "required": true,
-    "type": "text",
-    "name": "confirmPassword",
-    "label": "Confirm Pass",
-    "errors": "The passwords do not match"
+    "errors": "You must insert a password",
+    "grouped": true,
+    "gridCols": 2,
+    "gridGap": 2,
+    "group": [
+      {
+        "placeholder": "********",
+        "required": true,
+        "type": "text",
+        "name": "confirmPassword",
+        "label": "Confirm Pass",
+        "errors": "The passwords do not match",
+        "grouped": false
+      }
+    ]
   }
 ]
