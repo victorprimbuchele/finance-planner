@@ -14,9 +14,9 @@ type InputProps = {
   label: string;
   errors?: string;
   display?: "flex" | "grid";
-  gridCols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  gridCols?: number | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
-  gridGap?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  gridGap?: number | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
   grouped: boolean;
   group?: InputProps[];
 };
@@ -64,14 +64,7 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
               ))}
           </div>
         ) : (
-          <div
-            key={item.name}
-            className={
-              item.gridCols &&
-              `${item.gridCols}` + item.gridGap &&
-              `${item.gridGap}`
-            }
-          >
+          <div key={item.name}>
             <label htmlFor={item.name}>{item.label}</label>
             <input
               {...register(item.name, { required: item.required })}
