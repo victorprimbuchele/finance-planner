@@ -41,7 +41,7 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
         item.grouped ? (
           <div
             key={item.name}
-            className={`grid grid-cols-2 gap-2 my-2 shadow-sm rounded-xl py-2 px-3`}
+            className={`grid grid-cols-2 gap-2 my-2 shadow-md rounded-xl py-2 px-3`}
           >
             <div key={item.name} className="flex w-fit flex-col ">
               <label className="font-medium" htmlFor={item.name}>
@@ -53,7 +53,7 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
                 {...register(item.name, { required: item.required })}
                 type={item.type}
                 placeholder={item.placeholder}
-                className={` ${item.class}`}
+                className={` ${item.class} font-semibold outline-none shadow-outline text-cyan-700`}
               />
               {errors[item.name] && <span>{item.errors}</span>}
             </div>
@@ -69,7 +69,7 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
                   <input
                     min={subitem.min ? subitem.min : 0}
                     max={subitem.max ? subitem.max : 0}
-                    className={`w-fit ${subitem.class}`}
+                    className={`w-fit ${subitem.class} font-semibold outline-none shadow-outline  text-cyan-700`}
                     key={`${subitem.name}@`}
                     {...register(subitem.name, { required: subitem.required })}
                     type={subitem.type}
@@ -80,12 +80,12 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
               ))}
           </div>
         ) : (
-          <div key={item.name} className="shadow-sm py-2 px-3 rounded-xl">
+          <div key={item.name} className="shadow-md py-2 px-3 rounded-xl">
             <label className="font-medium" htmlFor={item.name}>
               {item.label}
             </label>
             <input
-              className="ml-2"
+              className="font-semibold outline-none shadow-outline text-cyan-700 w-full"
               {...register(item.name, { required: item.required })}
               type={item.type}
               placeholder={item.placeholder}
