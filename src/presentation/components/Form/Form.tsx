@@ -41,7 +41,7 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
         item.grouped ? (
           <div
             key={item.name}
-            className={`grid grid-cols-2 gap-2 my-2 shadow-sm rounded-xl py-2 px-3 bg-stone-100`}
+            className={`grid grid-cols-2 gap-2 my-2 shadow-sm rounded-xl py-2 px-3`}
           >
             <div key={item.name} className="flex w-fit flex-col ">
               <label className="font-medium" htmlFor={item.name}>
@@ -80,10 +80,7 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
               ))}
           </div>
         ) : (
-          <div
-            key={item.name}
-            className="shadow-sm py-2 px-3 rounded-xl  bg-stone-100"
-          >
+          <div key={item.name} className="shadow-sm py-2 px-3 rounded-xl">
             <label className="font-medium" htmlFor={item.name}>
               {item.label}
             </label>
@@ -100,7 +97,7 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
       <div className="w-100 justify-center flex  mt-8">
         <button
           type="submit"
-          className="bg-cyan-600 hover:bg-stone-700 rounded-xl px-5 py-2 text-white font-normal text-lg duration-700"
+          className="bg-cyan-600 hover:bg-stone-700 rounded-xl px-5 py-2 text-white font-normal text-lg duration-500"
         >
           Submit
         </button>
