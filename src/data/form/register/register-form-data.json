@@ -47,7 +47,7 @@
   {
     "placeholder": "********",
     "required": true,
-    "type": "text",
+    "type": "password",
     "name": "password",
     "label": "Pass",
     "errors": "You must insert a password",
@@ -58,7 +58,7 @@
       {
         "placeholder": "********",
         "required": true,
-        "type": "text",
+        "type": "password",
         "name": "confirmPassword",
         "label": "Confirm Pass",
         "errors": "The passwords do not match",
