@@ -39,24 +39,31 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       {input.map((item) =>
         item.grouped ? (
-          <div key={item.name} className={`grid grid-cols-2 gap-2 my-2`}>
-            {console.log(item.gridCols)}
-            <div key={item.name} className="flex w-fit flex-col">
-              <label htmlFor={item.name}>{item.label}</label>
+          <div
+            key={item.name}
+            className={`grid grid-cols-2 gap-2 my-2 shadow-sm rounded-xl py-2 px-3 bg-stone-100`}
+          >
+            <div key={item.name} className="flex w-fit flex-col ">
+              <label className="font-medium" htmlFor={item.name}>
+                {item.label}
+              </label>
               <input
                 min={item.min ? item.min : 0}
                 max={item.max ? item.max : 0}
                 {...register(item.name, { required: item.required })}
                 type={item.type}
                 placeholder={item.placeholder}
-                className={item.class}
+                className={` ${item.class}`}
               />
               {errors[item.name] && <span>{item.errors}</span>}
             </div>
             {item.group &&
               item.group.map((subitem, i) => (
-                <div key={item.name} className="flex w-fit flex-col">
-                  <label htmlFor={subitem.name} className="w-fit mr-4">
+                <div key={item.name} className="flex w-fit flex-col ">
+                  <label
+                    htmlFor={subitem.name}
+                    className="w-fit mr-4 font-medium"
+                  >
                     {subitem.label}
                   </label>
                   <input
@@ -73,8 +80,13 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
               ))}
           </div>
         ) : (
-          <div key={item.name}>
-            <label htmlFor={item.name}>{item.label}</label>
+          <div
+            key={item.name}
+            className="shadow-sm py-2 px-3 rounded-xl  bg-stone-100"
+          >
+            <label className="font-medium" htmlFor={item.name}>
+              {item.label}
+            </label>
             <input
               className="ml-2"
               {...register(item.name, { required: item.required })}
@@ -85,7 +97,14 @@ export const Form: React.FC<FormParams> = ({ input, children }) => {
           </div>
         )
       )}
-      <button type="submit">Submit</button>
+      <div className="w-100 justify-center flex  mt-8">
+        <button
+          type="submit"
+          className="bg-cyan-600 hover:bg-stone-700 rounded-xl px-5 py-2 text-white font-normal text-lg duration-700"
+        >
+          Submit
+        </button>
+      </div>
     </form>
   );
 };
