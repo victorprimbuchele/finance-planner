@@ -1,0 +1,69 @@
+[
+  {
+    "placeholder": "Victor Prim",
+    "required": true,
+    "type": "text",
+    "name": "name",
+    "label": "Name",
+    "errors": "You must insert a name",
+    "grouped": false
+  },
+  {
+    "placeholder": "25",
+    "required": true,
+    "type": "number",
+    "name": "age",
+    "label": "Age",
+    "errors": "You must insert an age",
+    "grouped": true,
+    "gridCols": "grid-cols-2",
+    "gridGap": "gap-2",
+    "class": "",
+    "max": 150,
+    "min": 0,
+    "group": [
+      {
+        "placeholder": "Male/Female",
+        "required": true,
+        "type": "text",
+        "name": "gender",
+        "label": "Gender",
+        "errors": "You must insert a gender",
+        "grouped": false,
+        "max": 6,
+        "min": 4
+      }
+    ]
+  },
+  {
+    "placeholder": "victorprimbuchele@gmail.com",
+    "required": true,
+    "type": "text",
+    "name": "email",
+    "label": "Email",
+    "errors": "You must insert a email",
+    "grouped": false
+  },
+  {
+    "placeholder": "********",
+    "required": true,
+    "type": "text",
+    "name": "password",
+    "label": "Pass",
+    "errors": "You must insert a password",
+    "grouped": true,
+    "gridCols": "grid-cols-2",
+    "gridGap": "gap-2",
+    "group": [
+      {
+        "placeholder": "********",
+        "required": true,
+        "type": "text",
+        "name": "confirmPassword",
+        "label": "Confirm Pass",
+        "errors": "The passwords do not match",
+        "grouped": false
+      }
+    ]
+  }
+]
