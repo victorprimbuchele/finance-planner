@@ -65,5 +65,14 @@
         "grouped": false
       }
     ]
+  },
+  {
+    "placeholder": "xxxx-xxxx-xxxx-xxxx",
+    "required": true,
+    "type": "text",
+    "name": "apiKey",
+    "label": "Api Key",
+    "errors": "Without an api key you cannot access this app",
+    "grouped": false
   }
 ]

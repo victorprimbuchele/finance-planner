@@ -1,5 +1,6 @@
 export interface FormParams {
   input: InputProps[];
+  onSubmit: (value: any) => void;
   children?: React.ReactNode;
 }
 

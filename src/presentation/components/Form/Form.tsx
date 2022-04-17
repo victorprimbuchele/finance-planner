@@ -1,17 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+
 import { FormParams } from "./form-types";
 
-export const Form: React.FC<FormParams> = ({ input, children }) => {
+export const Form: React.FC<FormParams> = ({ input, children, onSubmit }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
+  // const onSubmit = (data: any) => {
+  //   console.log(data);
+  // };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
