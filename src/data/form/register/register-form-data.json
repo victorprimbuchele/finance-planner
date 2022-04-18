@@ -31,7 +31,17 @@
         "errors": "You must insert a gender",
         "grouped": false,
         "max": 6,
-        "min": 4
+        "min": 4,
+        "options": [
+          {
+            "value": "male",
+            "label": "Male"
+          },
+          {
+            "value": "female",
+            "label": "Female"
+          }
+        ]
       }
     ]
   },

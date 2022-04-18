@@ -20,4 +20,9 @@ export type InputProps = {
   min?: number;
   max?: number;
   class?: any;
+  options?: OptionsProps[];
+};
+type OptionsProps = {
+  value: string | number | readonly string[] | undefined;
+  label: string;
 };
