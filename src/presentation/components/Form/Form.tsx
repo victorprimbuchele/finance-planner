@@ -1,16 +1,24 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { FormParams } from "./form-types";
 import { InputGrouped } from "./Input/Grouped/InputGrouped";
 import { InputSimple } from "./Input/Simple/InputSimple";
 
-export const Form: React.FC<FormParams> = ({ input, children, onSubmit }) => {
+export const Form: React.FC<FormParams> = ({
+  input,
+  children,
+  onSubmit,
+  schema,
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

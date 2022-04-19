@@ -1,7 +1,19 @@
+import { OptionalObjectSchema, TypeOfShape } from "yup/lib/object";
+import { AnyObject } from "yup/lib/types";
+
 export interface FormParams {
   input: InputProps[];
   onSubmit: (value: any) => void;
   children?: React.ReactNode;
+  schema: OptionalObjectSchema<
+    {
+      [x: string]: any;
+    },
+    AnyObject,
+    TypeOfShape<{
+      [x: string]: any;
+    }>
+  >;
 }
 
 export type InputProps = {

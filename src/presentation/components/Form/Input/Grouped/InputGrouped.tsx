@@ -22,8 +22,6 @@ export const InputGrouped: React.FC<InputParams> = ({
               item={subitem}
               id={`${subitem.name}@${i}`}
             />
-            {/* min={subitem.min ? subitem.min : 0}
-              max={subitem.max ? subitem.max : 0} */}
           </div>
         ))}
     </>

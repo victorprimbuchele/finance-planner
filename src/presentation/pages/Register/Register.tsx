@@ -9,6 +9,7 @@ import { NeumorphicBox } from "../../components/Neumorphic/Box/Box";
 import RegisterFormData from "../../../data/form/register/register-form-data.json";
 import { UserPayload } from "../../../store/slices/user/user";
 import { addNewUser } from "../../../store/slices/user/users.slice";
+import * as yup from "yup";
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -23,6 +24,15 @@ export const Register: React.FC = () => {
     }
   };
 
+  const schema = yup.object({
+    name: yup.string().required().min(4),
+    age: yup.number().positive().integer().required(),
+    email: yup.string().email().required(),
+    gender: yup.string().required(),
+    password: yup.string().required().min(8),
+    confirmPassword: yup.string().required().min(8),
+  });
+
   return (
     <div className="grid place-content-center justify-center content-center h-full">
       <NeumorphicBox size="md" className="rounded-lg p-6">
@@ -35,7 +45,11 @@ export const Register: React.FC = () => {
           <h1>Register</h1>
         </div>
         <div>
-          <Form input={RegisterFormData} onSubmit={handleSubmit}></Form>
+          <Form
+            input={RegisterFormData}
+            onSubmit={handleSubmit}
+            schema={schema}
+          ></Form>
         </div>
       </NeumorphicBox>
     </div>
