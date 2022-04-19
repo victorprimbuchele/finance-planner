@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as yup from "yup";
 
 import { Form } from "../../components/Form/Form";
 import { NeumorphicBox } from "../../components/Neumorphic/Box/Box";
 import RegisterFormData from "../../../data/form/register/register-form-data.json";
 import { UserPayload } from "../../../store/slices/user/user";
 import { addNewUser } from "../../../store/slices/user/users.slice";
-import * as yup from "yup";
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();

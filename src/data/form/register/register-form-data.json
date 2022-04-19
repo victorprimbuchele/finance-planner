@@ -48,7 +48,7 @@
   {
     "placeholder": "victorprimbuchele@gmail.com",
     "required": true,
-    "type": "text",
+    "type": "email",
     "name": "email",
     "label": "Email",
     "errors": "You must insert a email",
