@@ -30,18 +30,22 @@ export const Login: React.FC = () => {
   });
 
   return (
-    <div className="grid place-content-center justify-center content-center h-full">
-      <NeumorphicBox size="md" className="rounded-lg p-6">
-        <div className="grid grid-cols-1 text-center content-center py-3 mb-5 items-center text-xl font-semibold">
+    <div className="grid grid-rows-3 place-content-center justify-center content-center h-full">
+      <div className="grid grid-cols-1 text-center content-center items-center w-full justify-items-center">
+        <div className=" bg-cyan-600 text-white w-fit p-4 flex">
+          <h1 className="font-bold">FINANCE</h1>
+          <h1>PLANNER</h1>
+        </div>
+      </div>
+      <NeumorphicBox size="md" className="rounded-lg p-6 h-max">
+        <div className="grid grid-cols-1 text-center content-center py-3 items-center text-xl font-semibold">
           <h1>Login</h1>
         </div>
-        <div>
-          <Form
-            input={LoginFormData}
-            onSubmit={handleSubmit}
-            schema={schema}
-          ></Form>
-        </div>
+        <Form
+          input={LoginFormData}
+          onSubmit={handleSubmit}
+          schema={schema}
+        ></Form>
       </NeumorphicBox>
     </div>
   );
