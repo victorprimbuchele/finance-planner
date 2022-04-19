@@ -17,7 +17,7 @@ export const InputSelect: React.FC<InputParams> = ({
             </option>
           ))}
       </select>
-      {errors[item.name] && <span>{item.errors}</span>}
+      {errors[item.name] && <span className="bg-red-700">{item.errors}</span>}
     </>
   );
 };
