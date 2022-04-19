@@ -1,75 +1,51 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { FormParams } from "./form-types";
+import { InputGrouped } from "./Input/Grouped/InputGrouped";
+import { InputSimple } from "./Input/Simple/InputSimple";
 
-export const Form: React.FC<FormParams> = ({ input, children, onSubmit }) => {
+export const Form: React.FC<FormParams> = ({
+  input,
+  children,
+  onSubmit,
+  schema,
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-
-  // const onSubmit = (data: any) => {
-  //   console.log(data);
-  // };
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {input.map((item) =>
+      {input.map((item, idx) =>
         item.grouped ? (
           <div
-            key={item.name}
+            key={`${item.name}@${idx}`}
             className={`grid grid-cols-2 gap-2 my-2 shadow-md rounded-xl py-2 px-3`}
           >
-            <div key={item.name} className="flex w-fit flex-col ">
-              <label className="font-medium" htmlFor={item.name}>
-                {item.label}
-              </label>
-              <input
-                min={item.min ? item.min : 0}
-                max={item.max ? item.max : 0}
-                {...register(item.name, { required: item.required })}
-                type={item.type}
-                placeholder={item.placeholder}
-                className={` ${item.class} font-semibold outline-none shadow-outline text-cyan-700`}
-              />
-              {errors[item.name] && <span>{item.errors}</span>}
-            </div>
-            {item.group &&
-              item.group.map((subitem, i) => (
-                <div key={item.name} className="flex w-fit flex-col ">
-                  <label
-                    htmlFor={subitem.name}
-                    className="w-fit mr-4 font-medium"
-                  >
-                    {subitem.label}
-                  </label>
-                  <input
-                    min={subitem.min ? subitem.min : 0}
-                    max={subitem.max ? subitem.max : 0}
-                    className={`w-fit ${subitem.class} font-semibold outline-none shadow-outline  text-cyan-700`}
-                    key={`${subitem.name}@`}
-                    {...register(subitem.name, { required: subitem.required })}
-                    type={subitem.type}
-                    placeholder={subitem.placeholder}
-                  />
-                  {errors[subitem.name] && <span>{subitem.errors}</span>}
-                </div>
-              ))}
+            <InputGrouped
+              register={register}
+              errors={errors}
+              item={item}
+              id={`${item.name}@${idx}`}
+            />
           </div>
         ) : (
-          <div key={item.name} className="shadow-md py-2 px-3 rounded-xl">
-            <label className="font-medium" htmlFor={item.name}>
-              {item.label}
-            </label>
-            <input
-              className="font-semibold outline-none shadow-outline text-cyan-700 w-full"
-              {...register(item.name, { required: item.required })}
-              type={item.type}
-              placeholder={item.placeholder}
+          <div
+            key={`${item.name}@${idx}`}
+            className="shadow-md py-2 px-3 rounded-xl"
+          >
+            <InputSimple
+              register={register}
+              errors={errors}
+              item={item}
+              id={`${item.name}@${idx}`}
             />
-            {errors[item.name] && <span>{item.errors}</span>}
           </div>
         )
       )}
