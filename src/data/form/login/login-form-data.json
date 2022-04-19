@@ -1,0 +1,20 @@
+[
+  {
+    "placeholder": "victorprimbuchele@gmail.com",
+    "required": true,
+    "type": "email",
+    "name": "email",
+    "label": "Email",
+    "errors": "You must insert your email",
+    "grouped": false
+  },
+  {
+    "placeholder": "********",
+    "required": true,
+    "type": "password",
+    "name": "confirmPassword",
+    "label": "Confirm Pass",
+    "errors": "You must to insert your password",
+    "grouped": false
+  }
+]

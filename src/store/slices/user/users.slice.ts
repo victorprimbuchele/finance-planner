@@ -53,3 +53,5 @@ export const addNewUser = createAsyncThunk(
     });
   }
 );
+
+export const userLogin = createAsyncThunk;
