@@ -1,8 +1,5 @@
 import React from "react";
 // import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as yup from "yup";
 
 import { Form } from "../../components/Form/Form";
@@ -11,7 +8,6 @@ import LoginFormData from "../../../data/form/login/login-form-data.json";
 import { UserPayload } from "../../../store/slices/user/user";
 
 export const Login: React.FC = () => {
-  const navigate = useNavigate();
   //   const dispatch = useDispatch();
 
   const handleSubmit = async (payload: UserPayload) => {
@@ -46,6 +42,9 @@ export const Login: React.FC = () => {
           onSubmit={handleSubmit}
           schema={schema}
         ></Form>
+        <div className="grid grid-cols-1 text-center content-center mb-2 mt-4 items-center text-md font-semibold text-slate-400 hover:underline hover:text-cyan-600 duration-300">
+          <a href="/register">I don't have an account</a>
+        </div>
       </NeumorphicBox>
     </div>
   );
