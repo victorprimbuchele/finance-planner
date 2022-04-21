@@ -15,9 +15,9 @@ export const Register: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = async (payload: UserPayload) => {
+  const handleSubmit = (payload: UserPayload) => {
     try {
-      await dispatch(addNewUser(payload));
+      dispatch(addNewUser(payload));
       console.log(payload);
     } catch (error) {
       console.error("Failed to create new user", error);
@@ -26,7 +26,7 @@ export const Register: React.FC = () => {
 
   const schema = yup.object({
     name: yup.string().required().min(4),
-    age: yup.number().positive().integer().required(),
+    age: yup.string().required(),
     email: yup.string().email().required(),
     gender: yup.string().required(),
     password: yup.string().required().min(8),
