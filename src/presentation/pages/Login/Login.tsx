@@ -7,6 +7,8 @@ import { NeumorphicBox } from "../../components/Neumorphic/Box/Box";
 import LoginFormData from "../../../data/form/login/login-form-data.json";
 import { UserPayload } from "../../../store/slices/user/user";
 import { userLogin } from "../../../store/slices/user/users.slice";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { NeumorphicButton } from "../../components/Neumorphic/Button/Button";
 
 export const Login: React.FC = () => {
   const dispatch = useDispatch();

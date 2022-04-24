@@ -1,0 +1,5 @@
+.neumorphic-button {
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e9e4e4, #ffffff) !important;
+  box-shadow: 6px 6px 16px #c4c4c4, -6px -6px 16px #ffffff;
+}
