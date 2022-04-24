@@ -17,3 +17,11 @@ export type ResponseLogin = {
   password: string;
   token: string;
 };
+
+export type IUser = {
+  name: string;
+  age: number;
+  gender: string;
+  email: string;
+  image: string;
+};
