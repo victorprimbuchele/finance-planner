@@ -12,10 +12,8 @@ export type LoginPayload = {
 };
 
 export type ResponseLogin = {
-  id: number;
-  email: string;
-  password: string;
-  token: string;
+  loggedUser: ILoggedUser;
+  token: string | null;
 };
 
 export type IUser = {
@@ -24,4 +22,14 @@ export type IUser = {
   gender: string;
   email: string;
   image: string;
+};
+
+export type ILoggedUser = {
+  age: number;
+  email: string;
+  gender: string;
+  id: number;
+  isAuth: boolean;
+  name: string;
+  password: string;
 };
