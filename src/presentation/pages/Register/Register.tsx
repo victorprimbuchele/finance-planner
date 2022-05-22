@@ -5,8 +5,8 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as yup from "yup";
 
-import { Form } from "../../components/Form/Form";
-import { NeumorphicBox } from "../../components/Neumorphic/Box/Box";
+import { Form } from "../../components/abstract/Form/Form";
+import { NeumorphicBox } from "../../components/abstract/Neumorphic/Box/Box";
 import RegisterFormData from "../../../data/form/register/register-form-data.json";
 import { UserPayload } from "../../../store/slices/user/user";
 import { addNewUser } from "../../../store/slices/user/users.slice";
@@ -18,7 +18,6 @@ export const Register: React.FC = () => {
   const handleSubmit = (payload: UserPayload) => {
     try {
       dispatch(addNewUser(payload));
-      console.log(payload);
     } catch (error) {
       console.error("Failed to create new user", error);
     }

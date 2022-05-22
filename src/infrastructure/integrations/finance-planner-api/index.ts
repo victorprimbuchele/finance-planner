@@ -8,5 +8,10 @@ export const apiFinancePlanner = axios.create({
   timeout: timeout,
   headers: {
     "Content-Type": "application/json",
+
+    authorization:
+      localStorage.getItem("token") != null
+        ? (localStorage.getItem("token") as string)
+        : "",
   },
 });

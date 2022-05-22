@@ -11,7 +11,7 @@ export const ProfileButton: React.FC<IProfileButtonParams> = ({
     >
       <Link
         to="/profile"
-        className="rounded-full w-14 h-10  bg-cyan-600 max-w-fit p-4  bg-[url(https://www.facebook.com/images/fb_icon_325x325.png)] bg-cover bg-center"
+        className={`rounded-full w-14 h-10  bg-cyan-600 max-w-fit p-4  bg-[url(${user.image})] bg-cover bg-center`}
       />
       <hr className="w-full my-2" />
       <div className="font-semibold">
