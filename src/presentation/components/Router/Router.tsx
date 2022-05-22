@@ -13,14 +13,15 @@ export const Router: React.FC = () => {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} />
-        <Route
+        <Route path="/home" element={<Home />} />
+        {/* <Route
           path="/home"
           element={
             <PrivateRoute>
               <Home />
             </PrivateRoute>
           }
-        />
+        /> */}
       </Routes>
     </BrowserRouter>
   );
