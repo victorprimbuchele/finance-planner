@@ -12,9 +12,6 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 }: PrivateRouteProps) => {
   const { user } = store.getState();
 
-  const state = useSelector((state: RootState) => state);
-  console.log(state);
-
   return (
     <div className="App w-full h-full">
       {user.status === "loading" ? (
@@ -25,7 +22,6 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
       ) : (
         <>
           {/* Acessar rotas privadas a partir do bool isAuth */}
-          {console.log(user)}
           {user.user.loggedUser.id !== 0 &&
           user.user.loggedUser.isAuth === true ? (
             children
