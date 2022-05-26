@@ -164,25 +164,61 @@ export const userLogin = createAsyncThunk(
   }
 );
 
-export const userLogout = createAsyncThunk(
-  "user/userLogout",
-  (email: string) => {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        const response: AxiosResponse<void> = await apiFinancePlanner.post(
-          "/logout",
-          {
-            email,
-            token: localStorage.getItem("token"),
-          }
-        );
+export const userLogout = createAsyncThunk("user/userLogout", (id: number) => {
+  return new Promise<void>(async (resolve, reject) => {
+    const logoutToast = toast.loading("Logging out...");
+    try {
+      // capturar token da localStorage
+      const authHeader = localStorage.getItem("token");
 
-        localStorage.removeItem("token");
+      // verificar se authHeader é nulo
+      if (authHeader == null) {
+        toast.update(logoutToast, {
+          render: "You're already logged out!",
+          type: "success",
+          isLoading: false,
+          autoClose: 2000,
+        });
         return resolve();
-      } catch (error) {
-        console.error(error);
-        return reject(error);
       }
-    });
-  }
-);
+
+      // dividir string em duas partes: [bearer, token]
+      const parts = authHeader.split(" ");
+
+      // capturar apenas o token das partes
+      const token = parts[1];
+
+      // enviar token para o servidor
+      const response: AxiosResponse<void> = await apiFinancePlanner.post(
+        "/logout",
+        {
+          id,
+          token: token,
+        }
+      );
+
+      // atualizar toast
+      toast.update(logoutToast, {
+        render: "You're logged out!",
+        type: "success",
+        isLoading: false,
+        autoClose: 2000,
+      });
+
+      // remover token da localStorage
+      localStorage.removeItem("token");
+      return resolve(response.data);
+    } catch (error) {
+      console.error(error);
+
+      toast.update(logoutToast, {
+        render: "Something went wrong!",
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+      });
+
+      return reject(error);
+    }
+  });
+});

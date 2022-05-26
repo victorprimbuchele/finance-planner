@@ -19,9 +19,9 @@ export const LogoutModal: React.FC = () => {
   const handleLogout = () => {
     try {
       // verificar se existe um usuário logado
-      if (actualUser.user.loggedUser.email) {
+      if (actualUser.user.loggedUser.id) {
         // chamar função de logout
-        dispatch(userLogout(actualUser.user.loggedUser.email));
+        dispatch(userLogout(actualUser.user.loggedUser.id));
         navigate("/");
         return;
       }

@@ -1,18 +1,32 @@
 import axios from "axios";
+import { resolve } from "path";
 
 const timeout = import.meta.env.VITE_FINANCE_PLANNER_API_TIMEOUT;
 const baseURL = import.meta.env.VITE_FINANCE_PLANNER_API_BASE_URL;
-
-const token = localStorage.getItem("token");
 
 export const apiFinancePlanner = axios.create({
   baseURL: baseURL,
   timeout: timeout,
   headers: {
     "Content-Type": "application/json",
-    authorization: token ? token : "",
   },
 });
+
+apiFinancePlanner.interceptors.request.use(
+  (config) => {
+    config = {
+      ...config,
+      headers: {
+        ...config.headers,
+        Authorization: localStorage.getItem("token") as string,
+      },
+    };
+    return Promise.resolve(config);
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 // Adicionar um interceptador de resposta
 apiFinancePlanner.interceptors.response.use(

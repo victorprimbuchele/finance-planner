@@ -6,22 +6,19 @@ import { Register } from "../../pages/Register/Register";
 import { PrivateRoute } from "./PrivateRoute";
 
 export const Router: React.FC = () => {
-  const { user } = store.getState();
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        {/* <Route
+        <Route
           path="/home"
           element={
             <PrivateRoute>
               <Home />
             </PrivateRoute>
           }
-        /> */}
+        />
       </Routes>
     </BrowserRouter>
   );
