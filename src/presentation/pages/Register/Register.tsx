@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as yup from "yup";
 
 import { Form } from "../../components/abstract/Form/Form";
-import { NeumorphicBox } from "../../components/abstract/Neumorphic/Box/Box";
+import { NeumorphicBox } from "../../components/abstract/Neumorphic/Box/NeumorphicBox";
 import RegisterFormData from "../../../data/form/register/register-form-data.json";
 import { UserPayload } from "../../../store/slices/user/user";
 import { addNewUser } from "../../../store/slices/user/users.slice";

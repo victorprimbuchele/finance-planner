@@ -61,6 +61,7 @@ const user = createSlice({
         (state, action: PayloadAction<ResponseLogin>) => {
           state.token = `Bearer ${action.payload.token}`;
           localStorage.setItem("token", state.token);
+          localStorage.setItem("isAuth", "true");
           if (state.user.loggedUser.id === 0) {
             state.user.loggedUser = {
               ...state.user.loggedUser,
@@ -69,6 +70,7 @@ const user = createSlice({
           }
 
           state.status = "succeeded";
+
           console.log(state.user.loggedUser);
           console.log(state.status);
           return state;

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import * as yup from "yup";
 
 import { Form } from "../../components/abstract/Form/Form";
-import { NeumorphicBox } from "../../components/abstract/Neumorphic/Box/Box";
+import { NeumorphicBox } from "../../components/abstract/Neumorphic/Box/NeumorphicBox";
 import LoginFormData from "../../../data/form/login/login-form-data.json";
 import { UserPayload } from "../../../store/slices/user/user";
 import { userLogin } from "../../../store/slices/user/users.slice";

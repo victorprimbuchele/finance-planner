@@ -22,8 +22,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
       ) : (
         <>
           {/* Acessar rotas privadas a partir do bool isAuth */}
-          {user.user.loggedUser.id !== 0 &&
-          user.user.loggedUser.isAuth === true ? (
+          {localStorage.getItem("isAuth") === "true" ? (
             children
           ) : (
             // Caso não esteja logado, redireciona para a rota de login
