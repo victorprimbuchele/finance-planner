@@ -1,4 +1,7 @@
-import { faWarning } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRightFromBracket,
+  faWarning,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,10 +11,10 @@ import { RootState } from "../../../store/store";
 import { Button } from "../abstract/Button/Button";
 
 import { Modal } from "../abstract/Modal/Modal";
+import { NeumorphicButton } from "../abstract/Neumorphic/Button/NeumorphicButton";
 
 export const LogoutModal: React.FC = () => {
   const actualUser = useSelector((state: RootState) => state.user);
-  console.log(actualUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
@@ -35,10 +38,26 @@ export const LogoutModal: React.FC = () => {
   };
 
   return (
-    <div>
-      <button id="btn-logout-modal" onClick={() => setIsOpen(true)}>
-        Open
-      </button>
+    <div className="md:flex md:items-center md:justify-center w-full">
+      <NeumorphicButton
+        lala="btn-logout"
+        className="hidden md:w-full md:h-auto md:flex md:justify-center"
+        onClick={() => setIsOpen(true)}
+      >
+        <FontAwesomeIcon
+          icon={faArrowRightFromBracket}
+          className="hidden md:block"
+          size="lg"
+          color="#354674"
+        />
+      </NeumorphicButton>
+      <Button
+        type="button"
+        className="block md:hidden"
+        onClick={() => setIsOpen(true)}
+      >
+        <span>Logout</span>
+      </Button>
       {isOpen ? (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <div className="flex flex-col justify-center">

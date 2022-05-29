@@ -1,11 +1,10 @@
 import React from "react";
-import { LogoutModal } from "../../components/Logout/Modal";
+import { NavigationSidebar } from "../../components/Sidebars/Navigation/NavigationSidebar";
 
 export const Home: React.FC = () => {
   return (
     <div>
-      Home
-      <LogoutModal />
+      <NavigationSidebar />
     </div>
   );
 };

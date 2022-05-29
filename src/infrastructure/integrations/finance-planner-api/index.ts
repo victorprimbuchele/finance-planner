@@ -36,6 +36,7 @@ apiFinancePlanner.interceptors.response.use(
   (error) => {
     // Caso o usuário esteja desautorizado ou desautenticado, seu token é removido e ele é redirecionado para a página de login
     if (error.response.status === 401 || error.response.status === 403) {
+      localStorage.setItem("isAuth", "false");
       localStorage.removeItem("token");
       window.location.href = "/login";
     }
