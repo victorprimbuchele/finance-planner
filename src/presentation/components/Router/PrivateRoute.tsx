@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { RootState, store } from "../../../store/store";
+import { Navigate, useNavigate } from "react-router-dom";
+import { RootState } from "../../../store/store";
 
 type PrivateRouteProps = {
   children: React.ReactNode;
@@ -10,25 +10,40 @@ type PrivateRouteProps = {
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   children,
 }: PrivateRouteProps) => {
-  const { user } = store.getState();
+  const { user } = useSelector((state: RootState) => state);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    /** Caso o token na localStorage seja uma string vazia,
+     *  verificar o status da requisição do login,
+     *  caso esteja carregando, não fazer nada,
+     *  caso esteja carregado, redirecionar para a página de login
+     * */
+    console.log(localStorage.getItem("token"));
+    if (
+      localStorage.getItem("token") === "" ||
+      !localStorage.getItem("token")
+    ) {
+      if (user.status === "loading") {
+        setIsLoading(true);
+        return;
+      }
+      navigate("/");
+      return;
+    }
+    setIsLoading(false);
+  }, [localStorage.getItem("token"), user.status]);
 
   return (
     <div className="App w-full h-full">
-      {user.status === "loading" ? (
+      {isLoading ? (
         <>
           <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"></svg>
           Loading...
         </>
       ) : (
-        <>
-          {/* Acessar rotas privadas a partir do bool isAuth */}
-          {localStorage.getItem("isAuth") === "true" ? (
-            children
-          ) : (
-            // Caso não esteja logado, redireciona para a rota de login
-            <Navigate to="/" replace />
-          )}
-        </>
+        <>{children}</>
       )}
     </div>
   );
