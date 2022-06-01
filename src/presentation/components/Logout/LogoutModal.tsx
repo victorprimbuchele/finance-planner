@@ -59,7 +59,11 @@ export const LogoutModal: React.FC = () => {
         <span>Logout</span>
       </Button>
       {isOpen ? (
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <Modal
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          hasTopBar={true}
+        >
           <div className="flex flex-col justify-center">
             <div className="flex flex-row text-center justify-center items-center  font-sans text-lg text-slate-700">
               <FontAwesomeIcon

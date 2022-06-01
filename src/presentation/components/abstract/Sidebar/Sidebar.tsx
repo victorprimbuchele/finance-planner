@@ -14,9 +14,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <NeumorphicBox
       size="md"
       key="sidebar"
-      className={`p-3 h-full w-full ${
-        hide.isHidden ? "invisible" : ""
-      }  md:w-20 xl:w-24 md:h-screen md:visible`}
+      className={`p-3 h-auto md:h-full w-full ${
+        hide.isHidden ? "hidden" : ""
+      }  md:w-20 xl:w-24 md:h-screen md:block`}
     >
       {children}
     </NeumorphicBox>

@@ -71,8 +71,6 @@ const user = createSlice({
 
           state.status = "succeeded";
 
-          console.log(state.user.loggedUser);
-          console.log(state.status);
           return state;
         }
       )

@@ -48,6 +48,7 @@ export const Register: React.FC = () => {
             input={RegisterFormData}
             onSubmit={handleSubmit}
             schema={schema}
+            buttonClass="w-100 justify-center flex mt-8"
           ></Form>
         </div>
       </NeumorphicBox>

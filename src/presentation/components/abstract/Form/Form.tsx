@@ -11,6 +11,7 @@ export const Form: React.FC<FormParams> = ({
   children,
   onSubmit,
   schema,
+  buttonClass,
 }) => {
   const {
     register,
@@ -49,7 +50,7 @@ export const Form: React.FC<FormParams> = ({
           </div>
         )
       )}
-      <div className="w-100 justify-center flex  mt-8">
+      <div className={buttonClass}>
         <button
           type="submit"
           className="bg-cyan-600 hover:bg-cyan-700 rounded-xl px-5 py-2 text-white font-normal text-lg duration-500"

@@ -5,6 +5,7 @@ export const Modal: React.FC<IModalParams> = ({
   closeButton = true,
   children,
   onClose,
+  hasTopBar,
 }: IModalParams) => {
   return (
     <div
@@ -25,10 +26,13 @@ export const Modal: React.FC<IModalParams> = ({
             >
               X
             </button>
-            <div
-              className="mt-1 mb-3 h-0 sm:h-px xl:h-0.5 
+
+            {hasTopBar ? (
+              <div
+                className="mt-1 mb-3 h-0 sm:h-px xl:h-0.5 
               bg-slate-300"
-            ></div>
+              ></div>
+            ) : null}
           </>
         )}
         <div id="modal-content">{children}</div>

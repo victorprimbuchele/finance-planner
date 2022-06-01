@@ -15,8 +15,6 @@ type NavigationSidebarButtonProps = {
 export const NavigationSidebarButton: React.FC<
   NavigationSidebarButtonProps
 > = ({ icon, iconSize, color, link, akg, className }) => {
-  console.log(icon);
-
   return (
     <div className="hidden md:flex md:flex-col md:justify-center md:items-center">
       {typeof icon === "string" ? (

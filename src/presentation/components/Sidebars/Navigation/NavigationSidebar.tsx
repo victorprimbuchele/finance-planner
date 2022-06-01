@@ -8,6 +8,7 @@ import { Sidebar } from "../../abstract/Sidebar/Sidebar";
 import { LogoutModal } from "../../Logout/LogoutModal";
 import yoda from "../../../../data/assets/yoda.jpg";
 import { NavigationSidebarButton } from "./Button/NavigationSidebarButton";
+import { CategoryModal } from "../../Category/CategoryModal";
 
 export const NavigationSidebar: React.FC = () => {
   const [isHidden, dispatch] = useReducer(hideIt, hide);
@@ -69,6 +70,9 @@ export const NavigationSidebar: React.FC = () => {
               akg={["btn-home", "btn-table", "btn-chart"]}
               link={["/home", "/transfers", "/statistics"]}
             />
+            <div className="mt-2">
+              <CategoryModal />
+            </div>
             <p className="md:hidden block">Home</p>
             {/* CRUD de transferências */}
 
