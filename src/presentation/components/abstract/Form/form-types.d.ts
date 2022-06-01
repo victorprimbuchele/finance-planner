@@ -14,6 +14,7 @@ export interface FormParams {
       [x: string]: any;
     }>
   >;
+  buttonClass: string;
 }
 
 export type InputProps = {

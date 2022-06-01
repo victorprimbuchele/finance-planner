@@ -20,7 +20,6 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
      *  caso esteja carregando, não fazer nada,
      *  caso esteja carregado, redirecionar para a página de login
      * */
-    console.log(localStorage.getItem("token"));
     if (
       localStorage.getItem("token") === "" ||
       !localStorage.getItem("token")

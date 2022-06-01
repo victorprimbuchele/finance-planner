@@ -1,19 +1,18 @@
+// terceiros
 import React from "react";
-import { useDispatch } from "react-redux";
 import * as yup from "yup";
-
+// meus
 import { Form } from "../../components/abstract/Form/Form";
 import { NeumorphicBox } from "../../components/abstract/Neumorphic/Box/NeumorphicBox";
 import LoginFormData from "../../../data/form/login/login-form-data.json";
 import { UserPayload } from "../../../store/slices/user/user";
 import { userLogin } from "../../../store/slices/user/users.slice";
 import { useNavigate } from "react-router-dom";
-import { store, useAppDispatch } from "../../../store/store";
+import { useAppDispatch } from "../../../store/store";
 
 export const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigator = useNavigate();
-  const { user } = store.getState();
 
   const handleSubmit = (payload: UserPayload) => {
     try {
@@ -45,6 +44,7 @@ export const Login: React.FC = () => {
           input={LoginFormData}
           onSubmit={handleSubmit}
           schema={schema}
+          buttonClass="w-100 justify-center flex mt-8"
         ></Form>
         <div className="grid grid-cols-1 text-center content-center mb-2 mt-4 items-center text-md font-semibold text-slate-400 hover:underline hover:text-cyan-600 duration-300">
           <a href="/register">I don't have an account</a>

@@ -1,0 +1,11 @@
+[
+  {
+    "placeholder": "Food",
+    "required": true,
+    "type": "text",
+    "name": "category",
+    "label": "Category name",
+    "errors": "You must inser at least 3 characters",
+    "grouped": false
+  }
+]
