@@ -32,10 +32,11 @@ export const NavigationSidebarButton: React.FC<
       ) : (
         icon.length > 0 &&
         icon.map((ico: IconName, i: number) => (
-          <div className="my-4">
+          <div className="my-4" key={`div-${i}-${ico}`}>
             <NeumorphicButton
               link={typeof link !== "undefined" ? link[i] : "/"}
-              lala={akg[i]}
+              lala={ico + i}
+              key={ico + i}
             >
               <FontAwesomeIcon
                 icon={ico}

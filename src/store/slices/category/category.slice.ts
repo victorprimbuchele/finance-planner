@@ -1,48 +1,79 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
+import { WritableDraft } from "immer/dist/internal";
 import { toast } from "react-toastify";
 import { apiFinancePlanner } from "../../../infrastructure/integrations/finance-planner-api";
+import { DataCreateCategory, ResponseCreateCategory } from "./category";
 
-type ResponseCreateCategory = {
-  data: DataCreateCategory[];
-};
+const categoryInitialState: Array<DataCreateCategory> = [];
 
-type DataCreateCategory = {
-  id: number;
+type UpdateCategoryPayload = {
+  id: number | string;
   name: string;
-  userId: number;
 };
-
-type PayloadCreateCategory = {
-  name: string;
-  id: number;
-};
-
-const categoryInitialState: DataCreateCategory[][] = [];
 
 const category = createSlice({
   name: "category",
   initialState: {
     categories: categoryInitialState,
     status: "idle",
+    isFetched: false,
   },
   reducers: {
-    setCategories: (state, action) => {
+    setCategoryList: (state, action) => {
+      state.categories = action.payload;
+    },
+    addCategoryToList: (state, action) => {
       state.categories.push(action.payload);
+    },
+    removeCategoryFromList: (state, action) => {
+      state.categories = state.categories.filter(
+        (category) => category.id !== action.payload
+      );
+    },
+    setIsFetched: (state, action) => {
+      state.isFetched = action.payload;
+    },
+    updateCategoryInList: (state, action) => {
+      // tentar encontrar categoria na lista
+      const index = state.categories.findIndex(
+        (category) => category.id === action.payload.id
+      );
+      /* caso ela esteja presente na lista, setar o novo nome
+       * da categoria em sua posição na lista
+       */
+      if (index !== -1) {
+        state.categories[index] = action.payload;
+      }
     },
   },
   extraReducers(builder) {
     builder
       .addCase(addNewCategory.pending, (state, action) => {
         state.status = "loading";
-        state.categories = [];
       })
       .addCase(addNewCategory.fulfilled, (state, action) => {
-        state.categories.push(action.payload);
         state.status = "succeeded";
-        return state;
       })
       .addCase(addNewCategory.rejected, (state, action) => {
+        state.status = "error";
+      })
+      .addCase(fetchCategory.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchCategory.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(fetchCategory.rejected, (state, action) => {
+        state.status = "error";
+      })
+      .addCase(deleteCategory.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(deleteCategory.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(deleteCategory.rejected, (state, action) => {
         state.status = "error";
       });
   },
@@ -50,27 +81,54 @@ const category = createSlice({
 
 export default category.reducer;
 
+export const listCategories = (
+  state: WritableDraft<{
+    categories: DataCreateCategory[];
+    status: string;
+  }>
+) => {
+  return state.categories;
+};
+
+export const getStatus = (
+  state: WritableDraft<{
+    categories: DataCreateCategory[];
+    status: string;
+  }>
+) => {
+  return state.status;
+};
+
 export const addNewCategory = createAsyncThunk(
   "category/create",
-  (payload: PayloadCreateCategory, thunkAPI) => {
-    return new Promise<DataCreateCategory[]>(async (resolve, reject) => {
-      const createCatToast = toast.loading("Logging out...");
+  (name: string, thunkAPI) => {
+    return new Promise<ResponseCreateCategory>(async (resolve, reject) => {
+      // criação de toast
+      const createCatToast = toast.loading("Creating new category...");
 
       try {
-        if (payload.name == null || payload.id == null) {
+        // caso o nome da categoria seja nulo, apresentar erro ao usuário
+        if (name == null) {
           toast.update(createCatToast, {
-            render: "Name or id must be filled",
+            render: "Name must be filled",
             type: "error",
             isLoading: false,
             autoClose: 2000,
           });
-          return reject("name or id is null");
+          return reject("name is null");
         }
 
+        // chamada da API para criar a categoria
         const response: AxiosResponse<ResponseCreateCategory> =
           await apiFinancePlanner.post("/categories", {
-            payload,
+            name,
           });
+
+        thunkAPI.dispatch(
+          category.actions.addCategoryToList(response.data.data)
+        );
+
+        // atualização do toast com sucesso da requisição
         toast.update(createCatToast, {
           render: "Your category has been created",
           type: "success",
@@ -78,7 +136,7 @@ export const addNewCategory = createAsyncThunk(
           autoClose: 2000,
         });
 
-        return resolve(response.data.data);
+        return resolve(response.data);
       } catch (error) {
         toast.update(createCatToast, {
           render: "We can't create your category",
@@ -88,6 +146,84 @@ export const addNewCategory = createAsyncThunk(
         });
 
         return reject(error);
+      }
+    });
+  }
+);
+
+export const fetchCategory = createAsyncThunk(
+  "category/list",
+  (_, thunkAPI) => {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        // buscar lista de categorias do atual usuário
+        const response = await apiFinancePlanner.get("/categories");
+
+        // setar categorias com os dados da api
+        thunkAPI.dispatch(category.actions.setCategoryList(response.data.data));
+
+        // setar status de dados buscados
+        thunkAPI.dispatch(category.actions.setIsFetched(true));
+
+        return resolve();
+      } catch (error) {
+        console.error(error);
+
+        return reject();
+      }
+    });
+  }
+);
+
+export const deleteCategory = createAsyncThunk(
+  "category/delete",
+  (id: number | string, thunkAPI) => {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        if (!id) {
+          toast.error("The id must be a number", {
+            isLoading: false,
+            autoClose: 2000,
+          });
+        }
+
+        await apiFinancePlanner.delete(`/categories/${id}`);
+
+        // remover categoria da lista
+        thunkAPI.dispatch(category.actions.removeCategoryFromList(id));
+
+        return resolve();
+      } catch (error: any) {
+        console.error(error);
+        toast.error(error.message, {
+          isLoading: false,
+          autoClose: 2000,
+        });
+        return reject();
+      }
+    });
+  }
+);
+
+export const updateCategory = createAsyncThunk(
+  "category/update",
+  (payload: UpdateCategoryPayload, thunkAPI) => {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        const response = await apiFinancePlanner.put(
+          `/categories/${payload.id}`,
+          { name: payload.name }
+        );
+
+        thunkAPI.dispatch(
+          category.actions.updateCategoryInList(response.data.data)
+        );
+
+        return resolve();
+      } catch (error) {
+        console.error(error);
+
+        return reject();
       }
     });
   }

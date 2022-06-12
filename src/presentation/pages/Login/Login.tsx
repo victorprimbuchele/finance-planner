@@ -14,9 +14,9 @@ export const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigator = useNavigate();
 
-  const handleSubmit = (payload: UserPayload) => {
+  const handleSubmit = async (payload: UserPayload) => {
     try {
-      dispatch(userLogin(payload));
+      await dispatch(userLogin(payload));
 
       navigator("/home");
     } catch (error) {

@@ -23,6 +23,7 @@ export const InputSimple: React.FC<InputParams> = ({
             type={item.type}
             placeholder={item.placeholder}
             key={id + "input"}
+            id={item.name}
           />
           {errors[item.name] && (
             <span className="text-red-600">{item.errors}</span>
