@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { RootState } from "../../../store/store";
+import { LoaderSpinner } from "../abstract/Loader/Spinner";
 
 type PrivateRouteProps = {
   children: React.ReactNode;
@@ -36,14 +37,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 
   return (
     <div className="App w-full h-full">
-      {isLoading ? (
-        <>
-          <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"></svg>
-          Loading...
-        </>
-      ) : (
-        <>{children}</>
-      )}
+      {isLoading ? <LoaderSpinner /> : <>{children}</>}
     </div>
   );
 };
