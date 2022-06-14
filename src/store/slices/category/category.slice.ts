@@ -3,14 +3,10 @@ import { AxiosResponse } from "axios";
 import { WritableDraft } from "immer/dist/internal";
 import { toast } from "react-toastify";
 import { apiFinancePlanner } from "../../../infrastructure/integrations/finance-planner-api";
+import { UpdatePayload } from "../default-methods-type";
 import { DataCreateCategory, ResponseCreateCategory } from "./category";
 
 const categoryInitialState: Array<DataCreateCategory> = [];
-
-type UpdateCategoryPayload = {
-  id: number | string;
-  name: string;
-};
 
 const category = createSlice({
   name: "category",
@@ -207,7 +203,7 @@ export const deleteCategory = createAsyncThunk(
 
 export const updateCategory = createAsyncThunk(
   "category/update",
-  (payload: UpdateCategoryPayload, thunkAPI) => {
+  (payload: UpdatePayload, thunkAPI) => {
     return new Promise<void>(async (resolve, reject) => {
       try {
         const response = await apiFinancePlanner.put(

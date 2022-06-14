@@ -5,7 +5,6 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
 import { ModalListRowProps } from "./modal-list-row-types";
 
 export const ModalListRow: React.FC<ModalListRowProps> = ({
@@ -14,7 +13,6 @@ export const ModalListRow: React.FC<ModalListRowProps> = ({
   updateAnything,
   handleDelete,
 }) => {
-  const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
   const [categoryName, setCategoryName] = useState(name);
 

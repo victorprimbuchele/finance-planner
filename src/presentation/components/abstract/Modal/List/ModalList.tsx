@@ -14,19 +14,6 @@ export const ModalList: React.FC<ModalListProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const update = (id: number | string, name: string) => {
-    dispatch(
-      updateAnything({
-        id: id,
-        name: name,
-      })
-    );
-  };
-
-  const handleDelete = (id: number | string) => {
-    dispatch(deleteAnything(id));
-  };
-
   useEffect(() => {
     if (!isFetched) dispatch(fetchAnything());
   }, []);
@@ -39,9 +26,9 @@ export const ModalList: React.FC<ModalListProps> = ({
             id={data.id}
             name={data.name}
             foreignKey={data.foreignKey}
-            handleDelete={handleDelete}
+            handleDelete={deleteAnything}
             key={data.id}
-            updateAnything={update}
+            updateAnything={updateAnything}
           />
         );
       })}

@@ -2,11 +2,11 @@ import { AsyncThunk } from "@reduxjs/toolkit";
 import { UpdatePayload } from "../../../../../store/slices/default-methods-type";
 
 export type ModalListProps = {
-  deleteAnything: AsyncThunk<void, string | number, {}>;
-  fetchAnything: AsyncThunk<void, void, {}>;
+  deleteAnything: (id: number | string) => void;
+  fetchAnything: () => void;
   isFetched: boolean;
   dataArray: DateCreateAnything[];
-  updateAnything: AsyncThunk<void, UpdatePayload, {}>;
+  updateAnything: (id: number | string, name: string) => void;
 };
 
 export type DateCreateAnything = {

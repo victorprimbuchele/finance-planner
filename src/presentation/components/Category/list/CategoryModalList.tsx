@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCategory,
   fetchCategory,
+  updateCategory,
 } from "../../../../store/slices/category/category.slice";
 import { RootState } from "../../../../store/store";
-import { CategoryListRow } from "./row/CategoryRow";
+import { ModalListRow } from "../../abstract/Modal/List/Row/ModalListRow";
 
 export const CategoryModalList: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,12 +25,12 @@ export const CategoryModalList: React.FC = () => {
     <>
       {categories.categories.map((category) => {
         return (
-          <CategoryListRow
+          <ModalListRow
             id={category.id}
             name={category.name}
-            userId={category.userId}
             handleDelete={handleDelete}
             key={category.id}
+            updateAnything={update}
           />
         );
       })}

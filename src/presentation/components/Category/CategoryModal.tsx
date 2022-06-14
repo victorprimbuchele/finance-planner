@@ -9,14 +9,22 @@ import { Modal } from "../abstract/Modal/Modal";
 import { NeumorphicButton } from "../abstract/Neumorphic/Button/NeumorphicButton";
 import CategoryFormData from "../../../data/form/category/category-form-data.json";
 import { Form } from "../abstract/Form/Form";
-import { useAppDispatch } from "../../../store/store";
-import { addNewCategory } from "../../../store/slices/category/category.slice";
-import { CategoryModalList } from "./list/CategoryModalList";
+import { RootState, useAppDispatch } from "../../../store/store";
+import {
+  addNewCategory,
+  deleteCategory,
+  fetchCategory,
+  updateCategory,
+} from "../../../store/slices/category/category.slice";
 import { CategoryFormPayload } from "../../../store/slices/category/category";
+import { ModalList } from "../abstract/Modal/List/ModalList";
+import { useSelector } from "react-redux";
 
 export const CategoryModal: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
+
+  const categories = useSelector((state: RootState) => state.category);
 
   const schema = yup.object({
     category: yup.string().required().min(3),
@@ -29,6 +37,19 @@ export const CategoryModal: React.FC = () => {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleDelete = async (id: number | string) => {
+    await dispatch(deleteCategory(id));
+  };
+
+  const update = async (id: number | string, name: string) => {
+    await dispatch(
+      updateCategory({
+        id: id,
+        name: name,
+      })
+    );
   };
 
   return (
@@ -63,7 +84,14 @@ export const CategoryModal: React.FC = () => {
                 buttonClass="w-auto my-2"
               />
             </div>
-            <CategoryModalList />
+            {/* <CategoryModalList /> */}
+            <ModalList
+              dataArray={categories.categories}
+              deleteAnything={handleDelete}
+              fetchAnything={() => dispatch(fetchCategory())}
+              isFetched={categories.isFetched}
+              updateAnything={update}
+            />
           </div>
         </Modal>
       ) : null}
