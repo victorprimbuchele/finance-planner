@@ -43,6 +43,10 @@ export const CategoryModal: React.FC = () => {
     await dispatch(deleteCategory(id));
   };
 
+  const handleFetch = async () => {
+    await dispatch(fetchCategory());
+  };
+
   const update = async (id: number | string, name: string) => {
     await dispatch(
       updateCategory({
@@ -84,11 +88,10 @@ export const CategoryModal: React.FC = () => {
                 buttonClass="w-auto my-2"
               />
             </div>
-            {/* <CategoryModalList /> */}
             <ModalList
               dataArray={categories.categories}
               deleteAnything={handleDelete}
-              fetchAnything={() => dispatch(fetchCategory())}
+              fetchAnything={handleFetch}
               isFetched={categories.isFetched}
               updateAnything={update}
             />

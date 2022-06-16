@@ -1,7 +1,4 @@
-import { AsyncThunk } from "@reduxjs/toolkit";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { UpdatePayload } from "../../../../../store/slices/default-methods-type";
 import { ModalListProps } from "./modal-list-types";
 import { ModalListRow } from "./Row/ModalListRow";
 
@@ -12,10 +9,8 @@ export const ModalList: React.FC<ModalListProps> = ({
   dataArray,
   updateAnything,
 }) => {
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    if (!isFetched) dispatch(fetchAnything());
+    if (!isFetched) fetchAnything();
   }, []);
 
   return (
