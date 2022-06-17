@@ -12,9 +12,10 @@ import { Form } from "../abstract/Form/Form";
 import { RootState, useAppDispatch } from "../../../store/store";
 import {
   addNewCategory,
-  deleteCategory,
-  fetchCategory,
-  updateCategory,
+  removeCategoryFromList,
+  setCategoryList,
+  setIsFetched,
+  updateCategoryInList,
 } from "../../../store/slices/category/category.slice";
 import { CategoryFormPayload } from "../../../store/slices/category/category";
 import { ModalList } from "../abstract/Modal/List/ModalList";
@@ -37,23 +38,6 @@ export const CategoryModal: React.FC = () => {
     } catch (e) {
       console.error(e);
     }
-  };
-
-  const handleDelete = async (id: number | string) => {
-    await dispatch(deleteCategory(id));
-  };
-
-  const handleFetch = async () => {
-    await dispatch(fetchCategory());
-  };
-
-  const update = async (id: number | string, name: string) => {
-    await dispatch(
-      updateCategory({
-        id: id,
-        name: name,
-      })
-    );
   };
 
   return (
@@ -90,10 +74,14 @@ export const CategoryModal: React.FC = () => {
             </div>
             <ModalList
               dataArray={categories.categories}
-              deleteAnything={handleDelete}
-              fetchAnything={handleFetch}
               isFetched={categories.isFetched}
-              updateAnything={update}
+              setters={{
+                setUpdate: updateCategoryInList,
+                setFetch: setCategoryList,
+                setLoading: setIsFetched,
+                setDelete: removeCategoryFromList,
+              }}
+              url={"/categories"}
             />
           </div>
         </Modal>

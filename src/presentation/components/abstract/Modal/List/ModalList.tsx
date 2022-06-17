@@ -1,16 +1,21 @@
 import { useEffect } from "react";
+import { handleFetch } from "../../handlers/CRUD/handlersCRUD";
 import { ModalListProps } from "./modal-list-types";
 import { ModalListRow } from "./Row/ModalListRow";
 
 export const ModalList: React.FC<ModalListProps> = ({
-  deleteAnything,
-  fetchAnything,
   isFetched,
   dataArray,
-  updateAnything,
+  url,
+  setters,
 }) => {
   useEffect(() => {
-    if (!isFetched) fetchAnything();
+    if (!isFetched)
+      handleFetch({
+        url,
+        setter: setters.setFetch,
+        loading: setters.setLoading,
+      });
   }, []);
 
   return (
@@ -21,9 +26,10 @@ export const ModalList: React.FC<ModalListProps> = ({
             id={data.id}
             name={data.name}
             foreignKey={data.foreignKey}
-            handleDelete={deleteAnything}
             key={data.id}
-            updateAnything={updateAnything}
+            url={url}
+            setUpdate={setters.setUpdate}
+            setDelete={setters.setDelete}
           />
         );
       })}

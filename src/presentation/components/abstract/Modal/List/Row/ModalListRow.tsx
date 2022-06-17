@@ -6,18 +6,27 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ModalListRowProps } from "./modal-list-row-types";
+import {
+  handleDelete,
+  handleUpdate,
+} from "../../../handlers/CRUD/handlersCRUD";
 
 export const ModalListRow: React.FC<ModalListRowProps> = ({
   id,
   name,
-  updateAnything,
-  handleDelete,
+  setUpdate,
+  setDelete,
+  url,
 }) => {
   const [edit, setEdit] = useState(false);
   const [categoryName, setCategoryName] = useState(name);
 
   const handleSubmitUpdate = () => {
-    updateAnything(id, categoryName);
+    handleUpdate({
+      url,
+      payload: { id, name: categoryName },
+      setter: setUpdate,
+    });
     setEdit(false);
   };
 
@@ -49,10 +58,9 @@ export const ModalListRow: React.FC<ModalListRowProps> = ({
             onClick={() => setEdit(true)}
           />
         )}
-
         <FontAwesomeIcon
           icon={faTrash}
-          onClick={() => handleDelete(id)}
+          onClick={() => handleDelete({ id, setter: setDelete, url })}
           className="cursor-pointer"
         />
       </div>

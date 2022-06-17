@@ -3,7 +3,12 @@ import { AxiosResponse } from "axios";
 import { WritableDraft } from "immer/dist/internal";
 import { toast } from "react-toastify";
 import { apiFinancePlanner } from "../../../infrastructure/integrations/finance-planner-api";
-import { UpdatePayload } from "../default-methods-type";
+import { UpdatePayload } from "../default/default";
+import {
+  deleteAnything,
+  fetchAnything,
+  updateAnything,
+} from "../default/default.slice";
 import { DataCreateCategory, ResponseCreateCategory } from "./category";
 
 const categoryInitialState: Array<DataCreateCategory> = [];
@@ -76,6 +81,13 @@ const category = createSlice({
 });
 
 export default category.reducer;
+export const {
+  setCategoryList,
+  addCategoryToList,
+  removeCategoryFromList,
+  setIsFetched,
+  updateCategoryInList,
+} = category.actions;
 
 export const listCategories = (
   state: WritableDraft<{
@@ -152,14 +164,13 @@ export const fetchCategory = createAsyncThunk(
   (_, thunkAPI) => {
     return new Promise<void>(async (resolve, reject) => {
       try {
-        // buscar lista de categorias do atual usuário
-        const response = await apiFinancePlanner.get("/categories");
-
-        // setar categorias com os dados da api
-        thunkAPI.dispatch(category.actions.setCategoryList(response.data.data));
-
-        // setar status de dados buscados
-        thunkAPI.dispatch(category.actions.setIsFetched(true));
+        thunkAPI.dispatch(
+          fetchAnything({
+            url: "/categories",
+            setter: setCategoryList,
+            loading: setIsFetched,
+          })
+        );
 
         return resolve();
       } catch (error) {
@@ -176,17 +187,13 @@ export const deleteCategory = createAsyncThunk(
   (id: number | string, thunkAPI) => {
     return new Promise<void>(async (resolve, reject) => {
       try {
-        if (!id) {
-          toast.error("The id must be a number", {
-            isLoading: false,
-            autoClose: 2000,
-          });
-        }
-
-        await apiFinancePlanner.delete(`/categories/${id}`);
-
-        // remover categoria da lista
-        thunkAPI.dispatch(category.actions.removeCategoryFromList(id));
+        thunkAPI.dispatch(
+          deleteAnything({
+            url: "/categories/",
+            id,
+            setter: removeCategoryFromList,
+          })
+        );
 
         return resolve();
       } catch (error: any) {
@@ -206,14 +213,22 @@ export const updateCategory = createAsyncThunk(
   (payload: UpdatePayload, thunkAPI) => {
     return new Promise<void>(async (resolve, reject) => {
       try {
-        const response = await apiFinancePlanner.put(
-          `/categories/${payload.id}`,
-          { name: payload.name }
+        thunkAPI.dispatch(
+          updateAnything({
+            url: "/categories/",
+            payload,
+            setter: updateCategoryInList,
+          })
         );
 
-        thunkAPI.dispatch(
-          category.actions.updateCategoryInList(response.data.data)
-        );
+        // const response = await apiFinancePlanner.put(
+        //   `/categories/${payload.id}`,
+        //   { name: payload.name }
+        // );
+
+        // thunkAPI.dispatch(
+        //   category.actions.updateCategoryInList(response.data.data)
+        // );
 
         return resolve();
       } catch (error) {
