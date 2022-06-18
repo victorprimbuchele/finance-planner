@@ -10,17 +10,19 @@ type NavigationSidebarButtonProps = {
   link?: string | Array<string>;
   akg: string | Array<string>;
   className?: string;
+  onClick?: () => void;
 };
 
 export const NavigationSidebarButton: React.FC<
   NavigationSidebarButtonProps
-> = ({ icon, iconSize, color, link, akg, className }) => {
+> = ({ icon, iconSize, color, link, akg, className, onClick }) => {
   return (
     <div className="hidden md:flex md:flex-col md:justify-center md:items-center">
       {typeof icon === "string" ? (
         <NeumorphicButton
-          link={typeof link === "string" ? link : "/"}
+          link={typeof link === "string" ? link : undefined}
           lala={typeof akg === "string" ? akg : "key"}
+          onClick={onClick ? onClick : () => 0}
         >
           <FontAwesomeIcon
             icon={icon}

@@ -5,25 +5,28 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DataCreateCategory } from "../../../../../store/slices/category/category";
-import { useDispatch } from "react-redux";
-import { updateCategory } from "../../../../../store/slices/category/category.slice";
+import { ModalListRowProps } from "./modal-list-row-types";
+import {
+  handleDelete,
+  handleUpdate,
+} from "../../../handlers/CRUD/handlersCRUD";
 
-interface CategoryListRow extends DataCreateCategory {
-  handleDelete: (id: number | string) => void;
-}
-
-export const CategoryListRow: React.FC<CategoryListRow> = ({
+export const ModalListRow: React.FC<ModalListRowProps> = ({
   id,
   name,
-  handleDelete,
+  setUpdate,
+  setDelete,
+  url,
 }) => {
-  const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
   const [categoryName, setCategoryName] = useState(name);
 
   const handleSubmitUpdate = () => {
-    dispatch(updateCategory({ id, name: categoryName }));
+    handleUpdate({
+      url,
+      payload: { id, name: categoryName },
+      setter: setUpdate,
+    });
     setEdit(false);
   };
 
@@ -55,10 +58,9 @@ export const CategoryListRow: React.FC<CategoryListRow> = ({
             onClick={() => setEdit(true)}
           />
         )}
-
         <FontAwesomeIcon
           icon={faTrash}
-          onClick={() => handleDelete(id)}
+          onClick={() => handleDelete({ id, setter: setDelete, url })}
           className="cursor-pointer"
         />
       </div>

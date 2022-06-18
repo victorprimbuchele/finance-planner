@@ -9,6 +9,7 @@ import { LogoutModal } from "../../Logout/LogoutModal";
 import yoda from "../../../../data/assets/yoda.jpg";
 import { NavigationSidebarButton } from "./Button/NavigationSidebarButton";
 import { CategoryModal } from "../../Category/CategoryModal";
+import { PaymentMethodModal } from "../../PaymentMethod/PaymentMethodModal";
 
 export const NavigationSidebar: React.FC = () => {
   const [isHidden, dispatch] = useReducer(hideIt, hide);
@@ -55,6 +56,7 @@ export const NavigationSidebar: React.FC = () => {
                   onClick={() =>
                     dispatch({ type: "TOGGLE", payload: !isHidden.isHidden })
                   }
+                  id="btn-close-sidebar"
                 >
                   close X
                 </Button>
@@ -70,8 +72,11 @@ export const NavigationSidebar: React.FC = () => {
               akg={["btn-home", "btn-table", "btn-chart"]}
               link={["/home", "/transfers", "/statistics"]}
             />
-            <div className="mt-2">
+            <div className="mt-2 md:mb-2">
               <CategoryModal />
+            </div>
+            <div className="md:mt-2">
+              <PaymentMethodModal />
             </div>
             <p className="md:hidden block">Home</p>
             {/* CRUD de transferências */}

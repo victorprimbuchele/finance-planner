@@ -7,65 +7,66 @@ import { toast } from "react-toastify";
 import { apiFinancePlanner } from "../../../infrastructure/integrations/finance-planner-api";
 import { DataCreateAnything, ResponseCreateAnything } from "../default/default";
 
-const categoryInitialState: Array<DataCreateAnything> = [];
+const paymentMethodInitialState: Array<DataCreateAnything> = [];
 
-const category = createSlice({
-  name: "category",
+const paymentMethod = createSlice({
+  name: "paymentMethod",
   initialState: {
-    categories: categoryInitialState,
+    paymentMethods: paymentMethodInitialState,
     status: "idle",
     isFetched: false,
   },
   reducers: {
-    setCategoryList: (state, action) => {
-      state.categories = action.payload;
+    setPaymentMethodList: (state, action) => {
+      state.paymentMethods = action.payload;
     },
-    addCategoryToList: (state, action) => {
-      state.categories.push(action.payload);
+    addPaymentMethodToList: (state, action) => {
+      state.paymentMethods.push(action.payload);
     },
-    removeCategoryFromList: (state, action) => {
-      state.categories = state.categories.filter(
-        (category) => category.id !== action.payload
+    removePaymentMethodFromList: (state, action) => {
+      state.paymentMethods = state.paymentMethods.filter(
+        (paymentMethod) => paymentMethod.id !== action.payload
       );
     },
     setIsFetched: (state, action) => {
       state.isFetched = action.payload;
     },
-    updateCategoryInList: (state, action) => {
+    updatePaymentMethodInList: (state, action) => {
       // tentar encontrar categoria na lista
-      const index = state.categories.findIndex(
-        (category) => category.id === action.payload.id
+      const index = state.paymentMethods.findIndex(
+        (paymentMethod) => paymentMethod.id === action.payload.id
       );
       /* caso ela esteja presente na lista, setar o novo nome
        * da categoria em sua posição na lista
        */
       if (index !== -1) {
-        state.categories[index] = action.payload;
+        state.paymentMethods[index] = action.payload;
       }
     },
   },
   extraReducers(builder) {
     builder
-      .addCase(addNewCategory.pending, (state, action) => {
+      .addCase(addNewPaymentMethod.pending, (state, action) => {
         state.status = "loading";
       })
-      .addCase(addNewCategory.fulfilled, (state, action) => {
+      .addCase(addNewPaymentMethod.fulfilled, (state, action) => {
         state.status = "succeeded";
       })
-      .addCase(addNewCategory.rejected, (state, action) => {
+      .addCase(addNewPaymentMethod.rejected, (state, action) => {
         state.status = "error";
       });
   },
 });
 
-export default category.reducer;
+export default paymentMethod.reducer;
+
 export const {
-  setCategoryList,
-  addCategoryToList,
-  removeCategoryFromList,
+  setPaymentMethodList,
+  addPaymentMethodToList,
+  removePaymentMethodFromList,
   setIsFetched,
-  updateCategoryInList,
-} = category.actions;
+  updatePaymentMethodInList,
+} = paymentMethod.actions;
 
 export const listCategories = (
   state: WritableDraft<{
@@ -85,12 +86,12 @@ export const getStatus = (
   return state.status;
 };
 
-export const addNewCategory = createAsyncThunk(
-  "category/create",
+export const addNewPaymentMethod = createAsyncThunk(
+  "payment-method/create",
   (name: string, thunkAPI) => {
     return new Promise<ResponseCreateAnything>(async (resolve, reject) => {
       // criação de toast
-      const createCatToast = toast.loading("Creating new category...");
+      const createCatToast = toast.loading("Creating new payment method...");
 
       try {
         // caso o nome da categoria seja nulo, apresentar erro ao usuário
@@ -106,17 +107,17 @@ export const addNewCategory = createAsyncThunk(
 
         // chamada da API para criar a categoria
         const response: AxiosResponse<ResponseCreateAnything> =
-          await apiFinancePlanner.post("/categories", {
+          await apiFinancePlanner.post("/payment-methods", {
             name,
           });
 
         thunkAPI.dispatch(
-          category.actions.addCategoryToList(response.data.data)
+          paymentMethod.actions.addPaymentMethodToList(response.data.data)
         );
 
         // atualização do toast com sucesso da requisição
         toast.update(createCatToast, {
-          render: "Your category has been created",
+          render: "Your payment method has been created",
           type: "success",
           isLoading: false,
           autoClose: 2000,
@@ -125,7 +126,7 @@ export const addNewCategory = createAsyncThunk(
         return resolve(response.data);
       } catch (error) {
         toast.update(createCatToast, {
-          render: "We can't create your category",
+          render: "We can't create your payment method",
           type: "error",
           isLoading: false,
           autoClose: 2000,

@@ -1,0 +1,11 @@
+[
+  {
+    "placeholder": "Credit card",
+    "required": true,
+    "type": "text",
+    "name": "paymentMethod",
+    "label": "Payment method name",
+    "errors": "You must insert at least 3 characters",
+    "grouped": false
+  }
+]
