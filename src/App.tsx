@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   faBars,
   faChartLine,
+  faCreditCard,
   faHome,
   faTable,
 } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +12,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 
 import "./global.css";
 
-library.add(faBars, faChartLine, faHome, faTable);
+library.add(faBars, faChartLine, faHome, faTable, faCreditCard);
 
 function App() {
   return (

@@ -15,7 +15,7 @@ export const NeumorphicButton: React.FC<INeumorphicButtonParams> = ({
   onClick,
 }: INeumorphicButtonParams) => {
   return (
-    <div className="hover:scale-110 duration-300 ">
+    <div className="hover:scale-110 duration-300">
       {link ? (
         <Link
           className={`py-2.5 px-3 neumorphic-button ${className}`}
@@ -29,8 +29,9 @@ export const NeumorphicButton: React.FC<INeumorphicButtonParams> = ({
         </Link>
       ) : (
         <Button
-          className={`py-2.5 px-3 neumorphic-button ${className}`}
+          className={`py-2.5 px-3 neumorphic-button ${className} w-full`}
           type="button"
+          id={lala}
           onClick={onClick}
         >
           {children}

@@ -43,7 +43,7 @@ export const deleteAnything = createAsyncThunk(
           });
         }
 
-        await apiFinancePlanner.delete(`/categories/${action.id}`);
+        await apiFinancePlanner.delete(`${action.url}/${action.id}`);
 
         // remover qualquer coisa de uma lista qualquer
         thunkAPI.dispatch(action.setter(action.id));
@@ -67,7 +67,7 @@ export const updateAnything = createAsyncThunk(
     return new Promise<void>(async (resolve, reject) => {
       try {
         const response = await apiFinancePlanner.put(
-          `/categories/${action.payload.id}`,
+          `${action.url}/${action.payload.id}`,
           { name: action.payload.name }
         );
 

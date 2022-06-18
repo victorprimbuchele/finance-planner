@@ -8,6 +8,7 @@ import { NeumorphicButton } from "../../Neumorphic/Button/NeumorphicButton";
 import { ModalList } from "../List/ModalList";
 import { Modal } from "../Modal";
 import { ModalCRUDProps } from "./modal-crud";
+import { NavigationSidebarButton } from "../../../Sidebars/Navigation/Button/NavigationSidebarButton";
 
 export const ModalCrud: React.FC<ModalCRUDProps> = ({
   icon,
@@ -17,12 +18,21 @@ export const ModalCrud: React.FC<ModalCRUDProps> = ({
   setters,
   dataArray,
   isFetched,
+  url,
+  titleMobile,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="md:flex md:items-center md:justify-center w-full">
-      <NeumorphicButton
+      <NavigationSidebarButton
+        akg={`btn-${titleMobile}`}
+        icon={icon}
+        iconSize="lg"
+        color="#354674"
+        onClick={() => setIsOpen(true)}
+      />
+      {/* <NeumorphicButton
         lala="btn-logout"
         className="hidden md:w-full md:h-auto md:flex md:justify-center"
         onClick={() => setIsOpen(true)}
@@ -33,13 +43,14 @@ export const ModalCrud: React.FC<ModalCRUDProps> = ({
           size="lg"
           color="#354674"
         />
-      </NeumorphicButton>
+      </NeumorphicButton> */}
       <Button
         type="button"
         className="block md:hidden"
         onClick={() => setIsOpen(true)}
+        id="btn-close-modal"
       >
-        <span>Category</span>
+        <span>{titleMobile}</span>
       </Button>
       {isOpen ? (
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -56,7 +67,7 @@ export const ModalCrud: React.FC<ModalCRUDProps> = ({
               dataArray={dataArray}
               isFetched={isFetched}
               setters={setters}
-              url={"/categories"}
+              url={url}
             />
           </div>
         </Modal>

@@ -1,5 +1,3 @@
-import { AnyAction, ThunkAction } from "@reduxjs/toolkit";
-
 export type UpdatePayload = {
   id: number | string;
   name: string;
@@ -21,3 +19,13 @@ export interface DeleteActionProps extends ActionProps {
 export interface UpdateActionProps extends ActionProps {
   payload: UpdatePayload;
 }
+
+export type ResponseCreateAnything = {
+  data: DataCreateAnything[];
+};
+
+export type DataCreateAnything = {
+  id: number;
+  name: string;
+  userId: number;
+};

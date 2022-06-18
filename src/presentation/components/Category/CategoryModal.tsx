@@ -47,6 +47,8 @@ export const CategoryModal: React.FC = () => {
         setDelete: removeCategoryFromList,
       }}
       isFetched={categories.isFetched}
+      url="/categories"
+      titleMobile="Categories"
     />
   );
 };

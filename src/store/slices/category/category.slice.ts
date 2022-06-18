@@ -1,17 +1,13 @@
+// third
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
 import { WritableDraft } from "immer/dist/internal";
 import { toast } from "react-toastify";
+// my
 import { apiFinancePlanner } from "../../../infrastructure/integrations/finance-planner-api";
-import { UpdatePayload } from "../default/default";
-import {
-  deleteAnything,
-  fetchAnything,
-  updateAnything,
-} from "../default/default.slice";
-import { DataCreateCategory, ResponseCreateCategory } from "./category";
+import { DataCreateAnything, ResponseCreateAnything } from "../default/default";
 
-const categoryInitialState: Array<DataCreateCategory> = [];
+const categoryInitialState: Array<DataCreateAnything> = [];
 
 const category = createSlice({
   name: "category",
@@ -58,24 +54,6 @@ const category = createSlice({
       })
       .addCase(addNewCategory.rejected, (state, action) => {
         state.status = "error";
-      })
-      .addCase(fetchCategory.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(fetchCategory.fulfilled, (state, action) => {
-        state.status = "succeeded";
-      })
-      .addCase(fetchCategory.rejected, (state, action) => {
-        state.status = "error";
-      })
-      .addCase(deleteCategory.pending, (state, action) => {
-        state.status = "loading";
-      })
-      .addCase(deleteCategory.fulfilled, (state, action) => {
-        state.status = "succeeded";
-      })
-      .addCase(deleteCategory.rejected, (state, action) => {
-        state.status = "error";
       });
   },
 });
@@ -91,7 +69,7 @@ export const {
 
 export const listCategories = (
   state: WritableDraft<{
-    categories: DataCreateCategory[];
+    categories: DataCreateAnything[];
     status: string;
   }>
 ) => {
@@ -100,7 +78,7 @@ export const listCategories = (
 
 export const getStatus = (
   state: WritableDraft<{
-    categories: DataCreateCategory[];
+    categories: DataCreateAnything[];
     status: string;
   }>
 ) => {
@@ -110,7 +88,7 @@ export const getStatus = (
 export const addNewCategory = createAsyncThunk(
   "category/create",
   (name: string, thunkAPI) => {
-    return new Promise<ResponseCreateCategory>(async (resolve, reject) => {
+    return new Promise<ResponseCreateAnything>(async (resolve, reject) => {
       // criação de toast
       const createCatToast = toast.loading("Creating new category...");
 
@@ -127,7 +105,7 @@ export const addNewCategory = createAsyncThunk(
         }
 
         // chamada da API para criar a categoria
-        const response: AxiosResponse<ResponseCreateCategory> =
+        const response: AxiosResponse<ResponseCreateAnything> =
           await apiFinancePlanner.post("/categories", {
             name,
           });
@@ -154,87 +132,6 @@ export const addNewCategory = createAsyncThunk(
         });
 
         return reject(error);
-      }
-    });
-  }
-);
-
-export const fetchCategory = createAsyncThunk(
-  "category/list",
-  (_, thunkAPI) => {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        thunkAPI.dispatch(
-          fetchAnything({
-            url: "/categories",
-            setter: setCategoryList,
-            loading: setIsFetched,
-          })
-        );
-
-        return resolve();
-      } catch (error) {
-        console.error(error);
-
-        return reject();
-      }
-    });
-  }
-);
-
-export const deleteCategory = createAsyncThunk(
-  "category/delete",
-  (id: number | string, thunkAPI) => {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        thunkAPI.dispatch(
-          deleteAnything({
-            url: "/categories/",
-            id,
-            setter: removeCategoryFromList,
-          })
-        );
-
-        return resolve();
-      } catch (error: any) {
-        console.error(error);
-        toast.error(error.message, {
-          isLoading: false,
-          autoClose: 2000,
-        });
-        return reject();
-      }
-    });
-  }
-);
-
-export const updateCategory = createAsyncThunk(
-  "category/update",
-  (payload: UpdatePayload, thunkAPI) => {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        thunkAPI.dispatch(
-          updateAnything({
-            url: "/categories/",
-            payload,
-            setter: updateCategoryInList,
-          })
-        );
-
-        // const response = await apiFinancePlanner.put(
-        //   `/categories/${payload.id}`,
-        //   { name: payload.name }
-        // );
-
-        // thunkAPI.dispatch(
-        //   category.actions.updateCategoryInList(response.data.data)
-        // );
-
-        return resolve();
-      } catch (error) {
-        console.error(error);
-
-        return reject();
       }
     });
   }

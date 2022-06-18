@@ -22,4 +22,6 @@ export type ModalCRUDProps = {
   setters: SetterObject;
   dataArray: DateCreateAnything[];
   isFetched: boolean;
+  url: string;
+  titleMobile: string;
 };
