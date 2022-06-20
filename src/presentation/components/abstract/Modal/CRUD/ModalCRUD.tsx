@@ -32,18 +32,6 @@ export const ModalCrud: React.FC<ModalCRUDProps> = ({
         color="#354674"
         onClick={() => setIsOpen(true)}
       />
-      {/* <NeumorphicButton
-        lala="btn-logout"
-        className="hidden md:w-full md:h-auto md:flex md:justify-center"
-        onClick={() => setIsOpen(true)}
-      >
-        <FontAwesomeIcon
-          icon={icon}
-          className="hidden md:block"
-          size="lg"
-          color="#354674"
-        />
-      </NeumorphicButton> */}
       <Button
         type="button"
         className="block md:hidden"

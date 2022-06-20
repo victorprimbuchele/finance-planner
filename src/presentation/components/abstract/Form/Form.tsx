@@ -17,9 +17,11 @@ export const Form: React.FC<FormParams> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  } = useForm(
+    schema && {
+      resolver: yupResolver(schema),
+    }
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

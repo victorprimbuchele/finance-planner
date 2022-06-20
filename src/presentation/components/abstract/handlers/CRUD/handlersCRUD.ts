@@ -13,13 +13,15 @@ import { store } from "../../../../../store/store";
 const dispatch = store.dispatch;
 
 const handleFetch = async (action: FetchActionProps) => {
-  await dispatch(
+  const { payload } = await dispatch(
     fetchAnything({
       url: action.url,
       setter: action.setter,
       loading: action.loading,
     })
   );
+
+  return payload;
 };
 
 const handleDelete = async (action: DeleteActionProps) => {
