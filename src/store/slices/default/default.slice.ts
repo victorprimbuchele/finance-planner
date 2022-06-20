@@ -10,7 +10,7 @@ import {
 export const fetchAnything = createAsyncThunk(
   "anything/list",
   (action: FetchActionProps, thunkAPI) => {
-    return new Promise<void>(async (resolve, reject) => {
+    return new Promise<any>(async (resolve, reject) => {
       try {
         // buscar lista de qualquer coisa do atual usuário
         const response = await apiFinancePlanner.get(action.url);
@@ -21,7 +21,7 @@ export const fetchAnything = createAsyncThunk(
         // setar status de dados buscados
         thunkAPI.dispatch(action.loading(true));
 
-        return resolve();
+        return resolve(response.data.data);
       } catch (error) {
         console.error(error);
 

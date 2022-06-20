@@ -1,0 +1,11 @@
+[
+  {
+    "placeholder": "Ex: delivery or cat food",
+    "required": true,
+    "type": "text",
+    "name": "subcategory",
+    "label": "Subcategory name",
+    "errors": "You must insert at least 3 characters",
+    "grouped": false
+  }
+]

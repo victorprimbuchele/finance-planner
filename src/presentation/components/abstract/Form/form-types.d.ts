@@ -5,7 +5,7 @@ export interface FormParams {
   input: InputProps[];
   onSubmit: (value: any) => void;
   children?: React.ReactNode;
-  schema: OptionalObjectSchema<
+  schema?: OptionalObjectSchema<
     {
       [x: string]: any;
     },
@@ -35,7 +35,7 @@ export type InputProps = {
   class?: any;
   options?: OptionsProps[];
 };
-type OptionsProps = {
+export type OptionsProps = {
   value: string | number | readonly string[] | undefined;
   label: string;
 };

@@ -10,6 +10,7 @@ import yoda from "../../../../data/assets/yoda.jpg";
 import { NavigationSidebarButton } from "./Button/NavigationSidebarButton";
 import { CategoryModal } from "../../Category/CategoryModal";
 import { PaymentMethodModal } from "../../PaymentMethod/PaymentMethodModal";
+import { SubCategoryModal } from "../../SubCategory/SubCategoryModal";
 
 export const NavigationSidebar: React.FC = () => {
   const [isHidden, dispatch] = useReducer(hideIt, hide);
@@ -24,6 +25,7 @@ export const NavigationSidebar: React.FC = () => {
         className={`p-3 ml-2 mt-2 md:hidden ${
           !isHidden.isHidden ? "hidden" : ""
         }`}
+        id="btn-hide-sidebar"
       >
         <FontAwesomeIcon icon="bars" size="2x" color="#354674" />
       </Button>
@@ -78,6 +80,10 @@ export const NavigationSidebar: React.FC = () => {
             <div className="md:mt-2">
               <PaymentMethodModal />
             </div>
+            <div className="md:mt-2">
+              <SubCategoryModal />
+            </div>
+
             <p className="md:hidden block">Home</p>
             {/* CRUD de transferências */}
 
