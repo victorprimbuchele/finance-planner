@@ -1,7 +1,7 @@
-import { DateCreateAnything } from "../modal-list-types";
+import { DateCreateAnything, IUrlProps } from "../modal-list-types";
 
 export interface ModalListRowProps extends DateCreateAnything {
-  url: string;
+  url: string | IUrlProps;
   setUpdate: any;
   setDelete: any;
 }

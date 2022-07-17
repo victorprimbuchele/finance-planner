@@ -10,9 +10,20 @@ export const ModalList: React.FC<ModalListProps> = ({
   setters,
 }) => {
   useEffect(() => {
+    if (typeof url === "string") {
+      if (!isFetched)
+        handleFetch({
+          url,
+          setter: setters.setFetch,
+          loading: setters.setLoading,
+        });
+
+      return () => {};
+    }
+
     if (!isFetched)
       handleFetch({
-        url,
+        url: url.list,
         setter: setters.setFetch,
         loading: setters.setLoading,
       });

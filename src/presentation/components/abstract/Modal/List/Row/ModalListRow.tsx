@@ -22,12 +22,40 @@ export const ModalListRow: React.FC<ModalListRowProps> = ({
   const [categoryName, setCategoryName] = useState(name);
 
   const handleSubmitUpdate = () => {
+    if (typeof url === "string") {
+      handleUpdate({
+        url,
+        payload: { id, name: categoryName },
+        setter: setUpdate,
+      });
+
+      return () => {};
+    }
+
     handleUpdate({
-      url,
+      url: url.update,
       payload: { id, name: categoryName },
       setter: setUpdate,
     });
     setEdit(false);
+  };
+
+  const handleSubmitDelete = () => {
+    if (typeof url === "string") {
+      handleDelete({
+        url,
+        id,
+        setter: setDelete,
+      });
+
+      return () => {};
+    }
+
+    handleDelete({
+      url: url.delete,
+      id,
+      setter: setDelete,
+    });
   };
 
   return (
@@ -60,7 +88,7 @@ export const ModalListRow: React.FC<ModalListRowProps> = ({
         )}
         <FontAwesomeIcon
           icon={faTrash}
-          onClick={() => handleDelete({ id, setter: setDelete, url })}
+          onClick={handleSubmitDelete}
           className="cursor-pointer"
         />
       </div>

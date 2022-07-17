@@ -157,7 +157,6 @@ export const SubCategoryModal: React.FC = () => {
                   );
                 })}
               </select>
-              {console.log(categoryId)}
               {categoryId && (
                 <div className="flex flex-col justify-center">
                   <div className="flex flex-row text-center justify-center items-center font-sans text-lg text-slate-700">
@@ -179,7 +178,12 @@ export const SubCategoryModal: React.FC = () => {
                       setLoading: setIsFetched,
                       setUpdate: updateSubCategoryInList,
                     }}
-                    url={`/sub-categories/${categoryId}`}
+                    url={{
+                      list: `/sub-categories/${categoryId}`,
+                      delete: `/sub-categories`,
+                      update: `/sub-categories`,
+                      create: `/sub-categories/${categoryId}`,
+                    }}
                   />
                 </div>
               )}
